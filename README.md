@@ -64,15 +64,28 @@ Two datasets were provided/generated:
 
 ---
 
-## 📊 Output Organization
-All results were saved using `.write.format("csv")` (or `.json`).  
-Final structure:
+## Repository Structure
 
-output/
-│── user_favorite_genres/
-│── avg_listen_time_per_song/
-│── genre_loyalty_scores/
-│── night_owl_users/
+Hands-on L6: Spark Structured API/
+│── datagen.py # Generates CSV datasets
+│── main.py # Spark Structured API analysis
+│── listening_logs.csv # Generated input dataset
+│── songs_metadata.csv # Generated input dataset
+│── output/ 
+      |── user_favorite_genres/
+      |── avg_listen_time_per_song/
+      |── genre_loyalty_scores/
+      |── night_owl_users/
+|── requirements
+│── README.md
+
+## Output Directory Structure
+│── output/ 
+      |── user_favorite_genres/
+      |── avg_listen_time_per_song/
+      |── genre_loyalty_scores/
+      |── night_owl_users/
+
 
 
 ## Dataset Description 💿
@@ -122,23 +135,6 @@ Each folder contains the respective result files.
 
 ---
 
-## 📂 Repository Structure
-├── data/
-│ ├── listening_logs.csv
-│ ├── songs_metadata.csv
-├── outputs/
-│ ├── user_favorite_genres/
-│ ├── avg_listen_time_per_song/
-│ ├── genre_loyalty_scores/
-│ ├── night_owl_users/
-├── notebooks/ or scripts/
-│ ├── music_analysis.ipynb (or music_analysis.py)
-├── README.md
-
-yaml
-Copy code
-
----
 
 ## 📝 Results Summary
 - **Favourite Genre:** Most users showed strong preference for one or two genres.  
