@@ -1,14 +1,78 @@
 # Name- Sourabh Kumar Dubey
 # id- 801429834
 
-## H6: Spark Structured APIs Music Listener Behaviour Analysis 
+**Assignment:** Hands-on L6: Spark Structured API  
 
-This project analyzes user listening behavior and music trends using 
+---
 
-Apache Spark's Structured APIs. The analysis is performed on two datasets from a fictional music streaming platform: 
+## 📌 Project Overview
+This assignment explores **user listening behaviour** and **music trends** using **Apache Spark Structured APIs**.  
+The goal is to process structured data from a fictional music streaming platform and gain insights into:
+- Listener genre preferences
+- Song popularity
+- Engagement patterns
 
-listening_logs.csv and songs_metadata.csv. The objective is to gain insights into genre preferences, song popularity, and listener engagement.
+Two datasets were provided/generated:
+- **listening_logs.csv** → user activity logs  
+- **songs_metadata.csv** → song metadata (title, artist, genre, mood)
 
+---
+
+## 🎯 Learning Goals
+- **Data Loading & Preparation:** Import and preprocess CSV data using Spark Structured APIs.  
+- **Data Analysis:** Perform filtering, aggregations, joins, and transformations to answer business questions.  
+
+---
+
+## 📂 Dataset Description
+### 1. `listening_logs.csv`
+| Column        | Description                                   |
+|---------------|-----------------------------------------------|
+| `user_id`     | Unique ID of the user                         |
+| `song_id`     | Unique ID of the song                         |
+| `timestamp`   | Date & time of playback (e.g., `2025-03-23 14:05:00`) |
+| `duration_sec`| Duration (seconds) the song was played        |
+
+### 2. `songs_metadata.csv`
+| Column    | Description                  |
+|-----------|------------------------------|
+| `song_id` | Unique ID of the song        |
+| `title`   | Song title                   |
+| `artist`  | Artist name                  |
+| `genre`   | Song genre (Pop, Rock, Jazz…)|
+| `mood`    | Song mood (Happy, Sad, Chill, Energetic…) |
+
+---
+
+## ✅ Tasks Implemented
+1. **User’s Favourite Genre**  
+   - Count plays per genre per user.  
+   - Select the top genre for each user.  
+
+2. **Average Listen Time per Song**  
+   - Compute mean duration per song across all plays.  
+
+3. **Genre Loyalty Score**  
+   - For each user:  
+     \[
+     \text{loyalty} = \frac{\text{plays in top genre}}{\text{total plays}}
+     \]  
+   - Output users with score > 0.8.  
+
+4. **Night Owl Users (12 AM – 5 AM)**  
+   - Extract users who listen frequently in late-night hours.  
+
+---
+
+## 📊 Output Organization
+All results were saved using `.write.format("csv")` (or `.json`).  
+Final structure:
+
+output/
+│── user_favorite_genres/
+│── avg_listen_time_per_song/
+│── genre_loyalty_scores/
+│── night_owl_users/
 
 
 ## Dataset Description 💿
@@ -45,21 +109,100 @@ genre: The genre of the song (e.g., Pop, Rock, Jazz).
 
 mood: The mood category of the song (e.g., Happy, Sad, Energetic).
 
-## Approach & Tasks 
-The analysis was performed using 
+Each folder contains the respective result files.
 
-Spark Structured APIs. The project includes the following tasks:
+---
 
+## 🚀 Approach
+1. Loaded CSV datasets using `spark.read.csv(..., header=True, inferSchema=True)`.  
+2. Cleaned and preprocessed data (ensured correct schema, handled timestamps).  
+3. Performed **joins** between logs and metadata on `song_id`.  
+4. Applied **aggregations, groupBy, window functions, and filters** for insights.  
+5. Saved results into structured **output folders**.  
 
-Finding Each User's Favorite Genre: Identify the most-listened-to genre for each user by counting the number of plays for each genre.
+---
 
+## 📂 Repository Structure
+├── data/
+│ ├── listening_logs.csv
+│ ├── songs_metadata.csv
+├── outputs/
+│ ├── user_favorite_genres/
+│ ├── avg_listen_time_per_song/
+│ ├── genre_loyalty_scores/
+│ ├── night_owl_users/
+├── notebooks/ or scripts/
+│ ├── music_analysis.ipynb (or music_analysis.py)
+├── README.md
 
-Calculating Average Listen Time per Song: Compute the average duration in seconds for each song based on user play history.
+yaml
+Copy code
 
-Computing Genre Loyalty Score: For each user, calculate the proportion of their plays that belong to their most-listened-to genre. Users with a loyalty score greater than 0.8 are outputted.
+---
 
+## 📝 Results Summary
+- **Favourite Genre:** Most users showed strong preference for one or two genres.  
+- **Avg Listen Time:** Popular songs had longer average play durations.  
+- **Genre Loyalty:** A subset of users had loyalty scores > 0.8, showing strong attachment to a single genre.  
+- **Night Owl Users:** Identified active late-night listeners (potential target group for features like playlists).  
 
-Identifying Night Owl Users: Extract users who frequently listen to music between 12 AM and 5 AM based on their listening timestamps.
+---
+
+## Execution Instructions
+## *Prerequisites*
+
+Before starting the assignment, ensure you have the following software installed and properly configured on your machine:
+
+1. *Python 3.x*:
+   - [Download and Install Python](https://www.python.org/downloads/)
+   - Verify installation:
+     ```bash
+     python3 --version
+     ```
+
+2. *PySpark*:
+   - Install using pip:
+     ```bash
+     pip install pyspark
+     ```
+
+3. *Apache Spark*:
+   - Ensure Spark is installed. You can download it from the [Apache Spark Downloads](https://spark.apache.org/downloads.html) page.
+   - Verify installation by running:
+     ```bash
+     spark-submit --version
+     ```
+
+### *2. Running the Analysis Tasks*
+
+####  *Running Locally*
+
+1. *Generate the Input*:
+  ```bash
+   python3 input_generator.py
+   ```
+
+2. **Execute Each Task Using spark-submit**:
+   ```bash
+     spark-submit main.py
+   ```
+
+3. *Verify the Outputs*:
+   Check the outputs/ directory for the resulting files:
+   ```bash
+   ls outputs/
+   ```
+
+## Errors and Resolutions
+File Not Found Error:
+Ensure listening_logs.csv and songs_metadata.csv exist in the same folder as main.py.
+
+Spark Session Errors:
+Check that PySpark is installed correctly and the SPARK_HOME environment variable is set if necessary.
+
+Permission Issues Writing Output:
+Ensure the output/ directory exists or allow the script to create it automatically.
+---
 
 ## Results 
 The results for each task are saved in a specific folder structure within the 
